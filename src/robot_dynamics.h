@@ -51,7 +51,7 @@
 #include <Eigen/Eigenvalues>
 #include <array>
 #include <cmath>
-#include "../utils/config.h"
+#include "utils/config.h"
 
 static constexpr int N_DOF = HNMG::DEGREE_FREEDOM;
 static constexpr double G_ACC = HNMG::GRAVITY;
