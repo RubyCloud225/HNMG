@@ -5,6 +5,7 @@
  /**
   * @brief Robot Dynamics class that implements newtons third law in 30 dimension C-space
   * 
+  * @details
   * Newton's third law - Every joint exerts reaction forces on every other joint through M(q)
   * 
   * the equation of motion in 30 dimensions:
@@ -15,6 +16,34 @@
   * - C(q,q̇) Coriolis and centrifugal forces (Christoffel symbols capturing how motion in one joint affects forces in another)
   * - G(q) gravity vector (how gravity affects each joint based on its configuration)
   * - τ control torques applied at each joint
+  * 
+  * The Hamiltonian for the robot:
+  * H(q,p) = ½ pᵀ M(q)⁻¹ p + V(q)
+  * 
+  * Hamilton's equations:
+  *     q̇ = ∂H/∂p = M(q)⁻¹ p
+  *     ṗ = -∂H/∂q = -G(q) - C(q,q̇)q̇
+  * 
+  * Connection to MAHQ:
+  *    Quantum:  iħ d/dt |psi> = H(t)|psi>
+  *    Robot:    d/dt (q,p) = {H, (q,p)}  (Poisson bracket - classical analogue)
+  *    Same structure. State evolves under a Hamiltonian.
+  * 
+  * @par Key Considerations
+  * - The interaction between newtons third law being deterministic and the use of a hamiltonian
+  * operator may not be compatible 
+  * - This does not involve learning the space it requires either a script for a human to direct it
+  * or a learning script for it to learn on its own
+  * 
+  * @par Limitations
+  * - **M(q)^{-1}- Conditioning at Scale**
+  * The inertia matrix M(q) is symmetric and definite in its construction, makes it britle and easy to
+  * break. ill-conditioning grows with the number of bodies in the system. In the event of an error this
+  * issue will compound, makes the matric harder to invert reliably. 
+  * 
+  * 
+  * @author Catherine Earl
+  * @date 13/06/2026 
   */
 
 
